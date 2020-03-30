@@ -1,0 +1,5 @@
+﻿  pch.cpp
+  apriori程序.cpp
+d:\新建文件夹\程序\apriori程序\apriori程序\apriori程序.cpp(34): warning C4101: “n1”: 未引用的局部变量
+d:\新建文件夹\程序\apriori程序\apriori程序\apriori程序.cpp(236): warning C4326: “main”的返回类型应为“int”而非“void”
+  apriori程序.vcxproj -> D:\新建文件夹\程序\apriori程序\Debug\apriori程序.exe
