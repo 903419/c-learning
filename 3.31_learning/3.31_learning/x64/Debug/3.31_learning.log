@@ -1,0 +1,14 @@
+﻿  test.c
+d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(6): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(6): note: 请考虑在格式字符串中使用“%zd”
+d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(7): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(7): note: 请考虑在格式字符串中使用“%zd”
+d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(8): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(8): note: 请考虑在格式字符串中使用“%zd”
+d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(9): note: 请考虑在格式字符串中使用“%zd”
+d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(10): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(10): note: 请考虑在格式字符串中使用“%zd”
+d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(11): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  d:\新建文件夹\程序\3.31_learning\3.31_learning\test.c(11): note: 请考虑在格式字符串中使用“%zd”
+  3.31_learning.vcxproj -> D:\新建文件夹\程序\3.31_learning\x64\Debug\3.31_learning.exe
