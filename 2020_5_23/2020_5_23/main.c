@@ -40,15 +40,25 @@
 
 int main()
 {
-	char murderer;
-	for (murderer = 'a'; murderer <= 'd'; murderer++)
+	int i = 1;
+	char *p = (char *)&i;
+	if (1 == *p)
 	{
-		if (3==((murderer != 'a') + (murderer == 'c') + (murderer == 'd') + (murderer != 'd')))
-		{
-			printf("凶手是%c\n", murderer);
-			break;
-		}
+		printf("小端");
 	}
+	else
+	{
+		printf("大端");
+	}
+	//char murderer;
+	//for (murderer = 'a'; murderer <= 'd'; murderer++)
+	//{
+	//	if (3==((murderer != 'a') + (murderer == 'c') + (murderer == 'd') + (murderer != 'd')))
+	//	{
+	//		printf("凶手是%c\n", murderer);
+	//		break;
+	//	}
+	//}
 	return 0;
 }
 
