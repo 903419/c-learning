@@ -1,0 +1,4 @@
+﻿  main.c
+d:\vs_code\c-learning\simulate string\simulate string\main.h(7): warning C4273: “strtok”: dll 链接不一致
+  g:\windows kits\10\include\10.0.17763.0\ucrt\string.h(440): note: 参见“strtok”的前一个定义
+  simulate string.vcxproj -> D:\vs_code\c-learning\simulate string\Debug\simulate string.exe
