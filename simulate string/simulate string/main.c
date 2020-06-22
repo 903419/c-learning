@@ -1,5 +1,26 @@
 #include "main.h"
 
+
+int main()
+{
+	char dst[20] = "abcdefg";
+	char src[] = "ABCDEFG";
+	printf("%s", my_strncpy(dst, src, 5));
+	return 0;
+}
+
+
+//strncat
+//int main()
+//{
+//	char dst[20] = "abcdefg";
+//	char src[] = "abcdefg";
+//	printf("%s", my_strncat(dst, src, 9));
+//	return 0;
+//}
+
+
+//strtok
 //int main()
 //
 //{
@@ -17,16 +38,14 @@
 //}
 
 
-int main()
-{
-	char dst[10];
-	char src[] = "abcdefghijk";
-	memcpy(dst, src, 30);
-	return 0;
-}
+//int main()
+//{
+//	char dst[10];
+//	char src[] = "abcdefghijk";
+//	memcpy(dst, src, 30);
+//	return 0;
+//}
 
-void *memmove(void *dst, const void *src, size_t num);
-void *memset(void *dst, int value, size_t num);
 //memmove
 //int main()
 //{

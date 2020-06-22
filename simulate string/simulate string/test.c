@@ -1,49 +1,94 @@
 #include "main.h"
 
-
-char *strtok(char *str, const char *delim)
+char *my_strncpy(char *dst, const char *src, size_t num)
 {
-	static char *src = NULL; //记下上一次非分隔字符串字符的位置,详见图示
-	const char *indelim = delim;//对delim做一个备份
-	int flag = 1, index = 0;
-
-	//每一次调用strtok,flag标记都会使得程序只记录下第一个非分隔符的位置,以后出现非分隔符不再处理
-
-	char *temp = NULL; //程序的返回值
-
-	if (str == NULL)
+	char *temp = dst;
+	int i = 0;
+	for (; i < (int)num; i++)
 	{
-		str = src;//若str为NULL则表示该程序继续处理上一次余下的字符串
-	}
-	for (; *str; str++)
-	{
-		delim = indelim;
-		for (; *delim; delim++)
+		if (*src != '\0')
 		{
-			if (*str == *delim)
-			{
-				*str = NULL; //若找到delim中感兴趣的字符,将该字符置为NULL
-				index = 1; //用来标记已出现感兴趣字符
-				break;
-			}
+			*dst = *src;
+			dst++, src++;
 		}
-		if (*str != NULL && flag == 1)
+		else
 		{
-			temp = str; //只记录下当前第一个非感兴趣字符的位置
-			flag = 0;
-		}
-		if (*str != NULL && flag == 0 && index == 1)
-		{
-			src = str;//第二次出现非感兴趣字符的位置(之前一定出现过感兴趣字符)
-			return temp;
+			*dst = '\0';
+			dst++;
 		}
 	}
-	src = str;
-
-	//执行该句表明一直未出现过感兴趣字符,或者说在出现了感兴趣的字符后,就没再出现过非感兴趣字符
-
 	return temp;
 }
+
+
+char *my_strncat(char *dst, const char *src, size_t num)
+{
+	char *temp = dst;
+	while (*dst != 0)
+	{
+		dst++;
+	}
+	int i = 0;
+	for (; i < (int )num; i++)
+	{
+		if(*src=='\0')
+		{ 
+			break;
+		}
+		else 
+		{
+			*dst = *src;
+			dst++, src++;
+		}
+	}
+	*dst = '\0';
+	return temp;
+}
+
+
+//char *strtok(char *str, const char *delim)
+//{
+//	static char *src = NULL; //记下上一次非分隔字符串字符的位置,详见图示
+//	const char *indelim = delim;//对delim做一个备份
+//	int flag = 1, index = 0;
+//
+//	//每一次调用strtok,flag标记都会使得程序只记录下第一个非分隔符的位置,以后出现非分隔符不再处理
+//
+//	char *temp = NULL; //程序的返回值
+//
+//	if (str == NULL)
+//	{
+//		str = src;//若str为NULL则表示该程序继续处理上一次余下的字符串
+//	}
+//	for (; *str; str++)
+//	{
+//		delim = indelim;
+//		for (; *delim; delim++)
+//		{
+//			if (*str == *delim)
+//			{
+//				*str = NULL; //若找到delim中感兴趣的字符,将该字符置为NULL
+//				index = 1; //用来标记已出现感兴趣字符
+//				break;
+//			}
+//		}
+//		if (*str != NULL && flag == 1)
+//		{
+//			temp = str; //只记录下当前第一个非感兴趣字符的位置
+//			flag = 0;
+//		}
+//		if (*str != NULL && flag == 0 && index == 1)
+//		{
+//			src = str;//第二次出现非感兴趣字符的位置(之前一定出现过感兴趣字符)
+//			return temp;
+//		}
+//	}
+//	src = str;
+//
+//	//执行该句表明一直未出现过感兴趣字符,或者说在出现了感兴趣的字符后,就没再出现过非感兴趣字符
+//
+//	return temp;
+//}
 
 
 char *my_strtok(char *str1, const char *sep)
@@ -64,17 +109,17 @@ char *my_strtok(char *str1, const char *sep)
 		{
 			if (*str1 == *t)
 			{
-				*str1 = NULL;//置空
+				*str1 = '\0';//置空
 				index = 1;//有切割符，发生变化
 				break;
 			}
 		}
-		if (*str1 != NULL && flag == 1)//每一次调用的第一次不为空的地址
+		if (*str1 != '\0' && flag == 1)//每一次调用的第一次不为空的地址
 		{
 			s = str1;//返回值指向这个起始地址
 			flag = 0;
 		}
-		if (*str1 != NULL && flag == 0 && index==1)//将切割符走完，且后面出现不为空的字符，前面已经出现过切割符
+		if (*str1 != '\0' && flag == 0 && index==1)//将切割符走完，且后面出现不为空的字符，前面已经出现过切割符
 		{
 			temp = str1;//temp保存str1此时的地址，作为下次传入null时的输入地址
 			return s;//返回第一次不为空的地址
