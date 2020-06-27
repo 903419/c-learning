@@ -2,17 +2,13 @@
 #define _BUBBLESORT_H_
 #include "main.h"
 
-int cmp_name(const void *s1, const void *p1)
+int cmp_name(const Info *s1, const Info *p1)
 {
-	MailList *s2 = (MailList *)s1;
-	MailList *p2 = (MailList *)p1;
-	return strcmp(s2->data->name, p2->data->name);
+	return strcmp(s1->name, p1->name);
 }
-int cmp_age(const void *s1, const void *p1)
+int cmp_age(const Info *s1, const Info *p1)
 {
-	MailList *s2 = (MailList *)s1;
-	MailList *p2 = (MailList *)p1;
-	if ((s2->data->age - p2->data->age) > 0)
+	if ((s1->age - p1->age) > 0)
 	{
 		return 1;
 	}
@@ -21,37 +17,33 @@ int cmp_age(const void *s1, const void *p1)
 		return -1;
 	}
 }
-int cmp_sex(const void *s1, const void *p1)
+int cmp_sex(const Info *s1, const Info *p1)
 {
-	MailList *s2 = (MailList *)s1;
-	MailList *p2 = (MailList *)p1;
-	return strcmp(s2->data->sex, p2->data->sex);
+	return strcmp(s1->sex, p1->sex);
 }
-int cmp_telephone(const void *s1, const void *p1)
+int cmp_telephone(const Info *s1, const Info *p1)
 {
-	MailList *s2 = (MailList *)s1;
-	MailList *p2 = (MailList *)p1;
-	return strcmp(s2->data->telephone, p2->data->telephone);
+	return strcmp(s1->telephone, p1->telephone);
 }
-int cmp_address(const void *s1, const void *p1)
+int cmp_address(const Info *s1, const Info *p1)
 {
-	MailList *s2 = (MailList *)s1;
-	MailList *p2 = (MailList *)p1;
-	return strcmp(s2->data->address, p2->data->address);
+	return strcmp(s1->address, p1->address);
 }
 
-void Swap(char *s1, char *s2, int width)
+void Swap(void *s1, void *s2, int width)
 {
 	int i = 0;
+	char *s3 = (char *)s1;
+	char *s4 = (char *)s2;
 	for (; i < width; i++)
 	{
-		s1[i] ^= s2[i];
-		s2[i] ^= s1[i];
-		s1[i] ^= s2[i];
+		s3[i] ^= s4[i];
+		s4[i] ^= s3[i];
+		s3[i] ^= s4[i];
 	}
 }
 
-void BubbleSort(void *base, int number, int width, int(*cmp)(const void *p, const void *p2))
+void BubbleSort(MailList *base, int number, int width, int(*cmp)(const Info *p, const Info *p2))
 {
 	int i = 0;
 	int j = 0;
@@ -59,9 +51,9 @@ void BubbleSort(void *base, int number, int width, int(*cmp)(const void *p, cons
 	{
 		for (j = 0; j < number - i - 1; j++)
 		{
-			if (cmp((char *)base + width * j, (char *)base + width * (j + 1)) > 0)
+			if (cmp(&base->data[j], &base->data[j+1]) > 0)
 			{
-				Swap((char *)base + width * j, (char *)base + width * (j + 1), width);
+				Swap(&base->data[j], &base->data[j+1],width);
 			}
 
 		}

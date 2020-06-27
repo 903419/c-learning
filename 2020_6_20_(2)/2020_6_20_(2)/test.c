@@ -116,7 +116,7 @@ void SeekContact(MailList *pm)
 		{
 			if (0 == strcmp(name, pm->data[i].name))
 			{
-				printf("查找成功，此人的信息为：\n");
+				printf("查找成功，小可爱的信息为：\n");
 				ShowOneContact(pm, i);
 				judge = 1;
 			}
