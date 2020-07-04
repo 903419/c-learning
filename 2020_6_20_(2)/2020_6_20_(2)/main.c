@@ -13,6 +13,8 @@ void menu()
 	printf("######      5.删除指定联系人信息     ######\n");
 	printf("######      6.清空所有联系人         ######\n");
 	printf("######      7.排序所有联系人         ######\n");
+	printf("######      8.读取文件联系人         ######\n");
+	printf("######      9.存储联系人到文件       ######\n");
 	printf("###########################################\n");
 
 }
@@ -49,6 +51,12 @@ int main()
 			break;
 		case 7:
 			SortContact(&Book);
+			break;
+		case 8:
+			ReadContact(&Book);
+			break;
+		case 9:
+			SaveContact(&Book);
 			break;
 		default:
 			printf("你的输入有错误！\n");

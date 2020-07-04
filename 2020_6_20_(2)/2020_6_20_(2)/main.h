@@ -31,6 +31,8 @@ void ModifyContact(MailList *pm);
 void ShowContact(MailList *pm);
 void ClearContact(MailList *pm);
 void SortContact(MailList *pm);
+void ReadContact(MailList *pm);
+void SaveContact(MailList *pm);
 
 
 #endif // !_MAIN_H_

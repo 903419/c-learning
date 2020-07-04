@@ -40,11 +40,41 @@ void menu3()
 	printf("####################################\n");
 }
 
+void menu4()
+{
+	printf("\n####################################\n");
+	printf("######         1.扩容          ######\n");
+	printf("######         2.不扩容        ######\n");
+	printf("####################################\n");
+}
+
 int Check(MailList *pm)
 {
 	if (pm->capacity -1 < pm->count)
 	{
 		printf("通讯录容量超过限制，不可再继续添加！\n");
+		printf("是否选择扩容！\n");
+		menu4();
+		int choice = 0;
+		scanf("%d", &choice);
+		Info *ptr = NULL;
+		switch (choice)
+		{
+		case 1:
+			ptr = realloc(pm->data,sizeof(Info) * pm->capacity * 2);
+			if (NULL != ptr)
+			{
+				pm->data = ptr;
+				pm->capacity = 2 * pm->capacity;
+				printf("扩容成功!\n");
+				return 0;
+			}
+		case 2:
+			return 1;
+		default:
+			printf("您的输入有误！\n");
+			break;
+		}
 		return 1;
 	}
 	return 0;
@@ -295,4 +325,62 @@ void SortContact(MailList *pm)
 		printf("输入的选择有误！\n");
 		break;
 	}
+}
+
+void ReadContact(MailList *pm)
+{
+	int c = 0;
+	int judge = 0;
+	FILE *fp = fopen("PhoneBook.txt", "r");
+	if (NULL == fp)
+	{
+		perror("file open failed");
+		exit(0);
+	}
+	while (1)
+	{
+		judge=Check(pm);
+		if (0 == judge)
+		{
+			fscanf(fp, "%s", pm->data[pm->count].name);
+			fscanf(fp, "%s", pm->data[pm->count].sex);
+			fscanf(fp, "%d", &pm->data[pm->count].age);
+			fscanf(fp, "%s", pm->data[pm->count].telephone);
+			fscanf(fp, "%s", pm->data[pm->count].address);
+			pm->count++;
+		}
+		else 
+		{
+			printf("未完全读取！\n");
+			break;
+		}
+		if ((c=fgetc(fp)) == EOF)
+		{
+			pm->count--;
+			printf("信息读取成功\n");
+			break;
+		}
+	}
+	fclose(fp);
+}
+
+void SaveContact(MailList *pm)
+{
+	FILE *fp = fopen("PhoneBook.txt", "w");
+	if (NULL == fp)
+	{
+		perror("file open failed");
+		exit(0);
+	}
+	for (int i = 0; i < pm->count; i++)
+	{
+		fprintf(fp, "%s\t", pm->data[i].name);
+		fprintf(fp, "%s\t", pm->data[i].sex);
+		fprintf(fp, "%d\t", pm->data[i].age );
+		fprintf(fp, "%s\t", pm->data[i].telephone );
+		fprintf(fp, "%s", pm->data[i].address );
+		fprintf(fp, "\n");
+	}
+	printf("\n联系人存储成功！\n");
+	fclose(fp);
 }
