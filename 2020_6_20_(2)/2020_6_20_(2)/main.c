@@ -66,5 +66,6 @@ int main()
 		printf("\n请做出你的选择:>");
 		scanf("%d", &choice);
 	}
+	free(Book.data);
 	return 0;
 }

@@ -4,7 +4,7 @@
 void InitiBook(MailList *pm)
 {
 	pm->count = 0;
-	pm->capacity = 3;//电话薄的大小，可以任意配置。
+	pm->capacity = 2;//电话薄的大小，可以任意配置。
 	pm->data = (Info *)malloc(sizeof(Info) * pm->capacity);
 }
 void menu1()
@@ -50,7 +50,8 @@ void menu4()
 
 int Check(MailList *pm)
 {
-	if (pm->capacity -1 < pm->count)
+	assert(pm);
+	if (pm->capacity - 1 < pm->count)
 	{
 		printf("通讯录容量超过限制，不可再继续添加！\n");
 		printf("是否选择扩容！\n");
@@ -65,7 +66,7 @@ int Check(MailList *pm)
 			if (NULL != ptr)
 			{
 				pm->data = ptr;
-				pm->capacity = 2 * pm->capacity;
+				pm->capacity = 2 + pm->capacity;
 				printf("扩容成功!\n");
 				return 0;
 			}
@@ -79,7 +80,6 @@ int Check(MailList *pm)
 	}
 	return 0;
 }
-
 void AddContact(MailList *pm)
 {
 	assert(pm);
@@ -90,21 +90,22 @@ void AddContact(MailList *pm)
 	}
 	printf("-----------------------------------------\n");
 	printf("请输入名字：>");
-	scanf("%s", &pm->data[pm->count].name);
+	scanf("%s", pm->data[pm->count].name);
 	printf("\n请输入性别：>");
-	scanf("%s", &pm->data[pm->count].sex);
+	scanf("%s", pm->data[pm->count].sex);
 	printf("\n请输入年龄：>");
 	scanf("%d", &pm->data[pm->count].age);
 	printf("\n请输入电话：>");
-	scanf("%s", &pm->data[pm->count].telephone);
+	scanf("%s", pm->data[pm->count].telephone);
 	printf("\n请输入住址：>");
-	scanf("%s", &pm->data[pm->count].address);
+	scanf("%s", pm->data[pm->count].address);
 	pm->count++;
+	printf("信息添加成功！\n");
 	printf("-----------------------------------------\n");
 }
-
 void DeleteContact(MailList *pm)
 {
+	assert(pm);
 	printf("请输入你要删除人的姓名：");
 	char name[20];
 	scanf("%s", &name);
@@ -128,9 +129,9 @@ void DeleteContact(MailList *pm)
 		printf("此人的信息不存在,无法删除\n");
 	}
 }
-
 void SeekContact(MailList *pm)
 {
+	assert(pm);
 	menu1();
 	printf("请输入你要查找的方式：>");
 	int choice = 0;
@@ -146,7 +147,7 @@ void SeekContact(MailList *pm)
 		{
 			if (0 == strcmp(name, pm->data[i].name))
 			{
-				printf("查找成功，小可爱的信息为：\n");
+				printf("查找成功，此人的信息为：\n");
 				ShowOneContact(pm, i);
 				judge = 1;
 			}
@@ -167,7 +168,7 @@ void SeekContact(MailList *pm)
 		{
 			if (0 == strcmp(telephone, pm->data[i].telephone))
 			{
-				printf("查找成功，这个人的信息为：\n");
+				printf("查找成功，此人的信息为：\n");
 				ShowOneContact(pm, i);
 				judge = 1;
 			}
@@ -184,6 +185,7 @@ void SeekContact(MailList *pm)
 }
 void ShowOneContact(MailList *pm, int number)
 {
+	assert(pm);
 	printf("---------------------------------------------------------\n");
 	printf("姓名：%s   ", pm->data[number].name);
 	printf("性别：%s   ", pm->data[number].sex);
@@ -193,9 +195,9 @@ void ShowOneContact(MailList *pm, int number)
 	printf("\n---------------------------------------------------------\n");
 	printf("\n");
 }
-
 void ModifyContact(MailList *pm)
 {
+	assert(pm);
 	printf("请输入你要修改人的姓名：");
 	char name[20];
 	scanf("%s", &name);
@@ -270,7 +272,9 @@ void ModifyContact(MailList *pm)
 }
 void ShowContact(MailList *pm)
 {
-	printf("--------------------------------------------------------\n");
+	assert(pm);
+	printf("-----------------------------------------------------------\n");
+	printf("\n|capacity:%-6d |count:%-6d |\n\n", pm->capacity, pm->count);
 	int i = 0;
 	for (; i < pm->count; i++)
 	{
@@ -281,14 +285,16 @@ void ShowContact(MailList *pm)
 		printf("住址：%s   ", pm->data[i].address);
 		printf("\n");
 	}
-	printf("---------------------------------------------------------\n");
+	printf("------------------------------------------------------------\n");
 }
 void ClearContact(MailList *pm)
 {
+	assert(pm);
 	pm->count = 0;
 }
 void SortContact(MailList *pm)
 {
+	assert(pm);
 	ShowContact(pm);
 	menu3();
 	printf("选择你排序的方式：>");
@@ -326,61 +332,83 @@ void SortContact(MailList *pm)
 		break;
 	}
 }
-
 void ReadContact(MailList *pm)
 {
-	int c = 0;
-	int judge = 0;
-	FILE *fp = fopen("PhoneBook.txt", "r");
+	assert(pm);
+	//int c = 0;
+	//int judge = 0;
+	//FILE *fp = fopen("PhoneBook.txt", "r");
+	//if (NULL == fp)
+	//{
+	//	perror("file open failed");
+	//	exit(0);
+	//}
+	//while (1)
+	//{
+	//	if ((c = fgetc(fp)) == EOF)
+	//	{
+	//		pm->count--;
+	//		printf("信息读取成功\n");
+	//		break;
+	//	}
+	//	judge=Check(pm);
+	//	if (0 == judge)
+	//	{
+	//		fscanf(fp, "%s", pm->data[pm->count].name);
+	//		fscanf(fp, "%s", pm->data[pm->count].sex);
+	//		fscanf(fp, "%d", &pm->data[pm->count].age);
+	//		fscanf(fp, "%s", pm->data[pm->count].telephone);
+	//		fscanf(fp, "%s", pm->data[pm->count].address);
+	//		pm->count++;
+	//	}
+	//	else 
+	//	{
+	//		printf("未完全读取！\n");
+	//		break;
+	//	}
+	//}
+
+	FILE *fp = fopen("PhoneBook.txt", "rb");
 	if (NULL == fp)
 	{
 		perror("file open failed");
 		exit(0);
 	}
-	while (1)
-	{
-		judge=Check(pm);
-		if (0 == judge)
-		{
-			fscanf(fp, "%s", pm->data[pm->count].name);
-			fscanf(fp, "%s", pm->data[pm->count].sex);
-			fscanf(fp, "%d", &pm->data[pm->count].age);
-			fscanf(fp, "%s", pm->data[pm->count].telephone);
-			fscanf(fp, "%s", pm->data[pm->count].address);
-			pm->count++;
-		}
-		else 
-		{
-			printf("未完全读取！\n");
-			break;
-		}
-		if ((c=fgetc(fp)) == EOF)
-		{
-			pm->count--;
-			printf("信息读取成功\n");
-			break;
-		}
-	}
+	MailList temp;
+	fread(&temp, sizeof(MailList), 1, fp);
+	pm->capacity = temp.capacity;
+	pm->count = temp.count;
+	pm->data = (Info *)realloc(pm->data, temp.capacity * sizeof(Info));
+	fread(pm->data, sizeof(Info), pm->count, fp);
+	printf("读取成功！\n");
 	fclose(fp);
 }
-
 void SaveContact(MailList *pm)
 {
-	FILE *fp = fopen("PhoneBook.txt", "w");
+	assert(pm);
+	FILE *fp = fopen("PhoneBook.txt", "wb");
+	//if (NULL == fp)
+	//{
+	//	perror("file open failed");
+	//	exit(0);
+	//}
+	//for (int i = 0; i < pm->count; i++)
+	//{
+	//	fprintf(fp, "%s\t", pm->data[i].name);
+	//	fprintf(fp, "%s\t", pm->data[i].sex);
+	//	fprintf(fp, "%d\t", pm->data[i].age );
+	//	fprintf(fp, "%s\t", pm->data[i].telephone );
+	//	fprintf(fp, "%s", pm->data[i].address );
+	//	fprintf(fp, "\n");
+	//}
+	//printf("\n联系人存储成功！\n");
 	if (NULL == fp)
 	{
 		perror("file open failed");
 		exit(0);
 	}
-	for (int i = 0; i < pm->count; i++)
-	{
-		fprintf(fp, "%s\t", pm->data[i].name);
-		fprintf(fp, "%s\t", pm->data[i].sex);
-		fprintf(fp, "%d\t", pm->data[i].age );
-		fprintf(fp, "%s\t", pm->data[i].telephone );
-		fprintf(fp, "%s", pm->data[i].address );
-		fprintf(fp, "\n");
-	}
-	printf("\n联系人存储成功！\n");
+	fwrite(pm, sizeof(MailList), 1, fp);
+	fwrite(pm->data, sizeof(Info), pm->count, fp);
+	printf("存储成功！\n");
 	fclose(fp);
 }
