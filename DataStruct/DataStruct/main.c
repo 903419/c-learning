@@ -2,9 +2,9 @@
 
 //#include "slist.h"
 
-#include "sclist.h"
+//#include "sclist.h"
 
-//#include "dclist.h"
+#include "dclist.h"
 
 //#include "stack.h"
 
@@ -336,7 +336,7 @@ int main() //双循环链表
 #endif //dclist
 
 
-#if 0
+#if 1
 
 int main() //头节点双循环链表
 {
@@ -435,7 +435,7 @@ int main() //头节点双循环链表
 
 
 
-#if 1
+#if 0
 
 int main() //头节点单循环链表
 {

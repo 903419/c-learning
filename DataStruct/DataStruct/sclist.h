@@ -710,25 +710,6 @@ void SCListHeadEraseVal(SCList *phead, ElementType x)//É¾³ý
 		prev->next = p->next;
 		free(p);
 	}
-
-	//while (p->data != x && p->next != *phead)
-	//{
-	//	prev = p;
-	//	p = p->next;
-	//}
-	//if (prev == NULL && p->data == x )
-	//{
-	//	(*phead)->next = p->next;
-	//	free(p);
-	//}
-	//else
-	//{
-	//	if (p->data == x)
-	//	{
-	//		prev->next = p->next;
-	//		free(p);
-	//	}
-	//}
 }
 
 SCListNode* SCListHeadFind(SCList *phead, ElementType x)//²éÕÒÊý¾Ý
@@ -860,8 +841,7 @@ void SCListHeadEraseAll(SCList *phead, ElementType x)//Çå³ýºÍÊäÈëÖµÔÚÁ´±íÖÐÒ»Ñùµ
 	assert(phead != NULL);
 	SCListHeadSort(phead);
 	SCListNode *p = (*phead)->next, *prev = NULL,*q=NULL;
-	SCListNode *s = SCListHeadFind(phead, x);
-	while (p != s)
+	while (p != SCListHeadFind(phead, x))
 	{
 		prev = p;
 		p = p->next;
