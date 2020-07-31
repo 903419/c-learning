@@ -1,16 +1,13 @@
 //#include "seqlist.h"
-
 //#include "slist.h"
-
 //#include "sclist.h"
-
-#include "dclist.h"
-
+//#include "dclist.h"
 //#include "stack.h"
-
 //#include "queue.h"
-
 //#include "bintree.h"
+//#include "heap.h"
+//#include "bst.h"
+#include "sort.h"
 
 void menuSeqlist()
 {
@@ -44,21 +41,100 @@ void menuSlist()
 }
 
 
-//ABD##E#H##CF##G##
-//ABC##DE##F##G#H##
+int main()
+{
+	int arr[] = { 18,20,33,39,12,19,16,22,29,27,30 };
+	//int arr[] = { 0,5,3,6,1 };
+	int size = sizeof(arr) / sizeof(arr[0]);
+	PrintArr(arr, 0, size);
+	TestSort(arr, 0, size);
+	PrintArr(arr, 0, size);
+	TestEffiency();
+	return 0;
+
+}
+#if 0
+int main()
+{
+	int arr[] = { 18,20,33,39,12,19,16,22,29,27,30 };
+	int size = sizeof(arr) / sizeof(arr[0]);
+
+
+	//BsTree bst;
+	//BstInit(&bst);
+
+	//for (int i = 0; i < size; i++)
+	//	BstInsert(&bst, arr[i]);
+	//BstSortPrint(bst);
+	//printf("\n");
+
+	//printf("%d  ", BstMin(bst));
+	//printf("%d  \n", BstMax(bst));
+
+	//BstNode *p = BstFind(bst, 16);
+	//BstErase(&bst, p);
+	//BstSortPrint(bst);
+	//printf("\n");
+	//BstDestroy(&bst);
+}
+
+#endif //bst
+
 
 #if 0
 int main()
 {
-	const char *s = "ABD##E#H##CF##G##";
-	const char *vlr = "ABDEHCFG";
-	const char *lvr = "DBEHAFCG";
-	const char *lrv = "DHEBFGCA";
+	//int arr[] = { 18,20,33,39,12,19,16,22,29,27,30,100 };
+	int arr[] = { 9,6,1,8,2,3,5 ,15};
+	int size = sizeof(arr) / sizeof(arr[0]);
+	MinHeap mhp;
+
+
+	//MinHeapInit(&mhp);
+	//MinHeapCreate(&mhp, arr, size);
+
+	MinHeapSort(&mhp,arr,size);
+
+	//for (int i = 0; i < size; i++)
+	//{
+	//	MinHeapInsert(&mhp, arr[i]);
+	//}
+
+	//MinHeapShow(&mhp);
+	//MinHeapErase(&mhp);
+	//MinHeapShow(&mhp);
+	//MinHeapDestroy(&mhp);
+	return 0;
+}
+
+#endif  //heap
+
+
+//ABD##E#H##CF##G##
+//ABC##DE##F##G#H##
+//ABDH##I##E##CF##G##
+
+#if 0
+int main()
+{
+	const char *s = "ABDH##I##E##CF##";
+	//const char *vlr = "ABDEHCFG";
+	//const char *lvr = "DBEHAFCG";
+	//const char *lrv = "DHEBFGCA";
 	int i = 0;
 	BinTree bt;
 	BinTreeInit(&bt);
-	int j = strlen(vlr);
-	bt = BinTreeCreate_4(lvr, lrv, &j, strlen(vlr));
+	bt = BinaryTreeCrete(s, &i);
+	int flag = BinaryTreeComplete(bt);
+	//int num = BinaryTreeLevelKSize(bt, 3);
+	//int size = BinaryTreeLeafSize(bt);
+
+
+
+	BinaryDestroy(&bt);
+
+	//int j = strlen(vlr);
+	//bt = BinTreeCreate_4(lvr, lrv, &j, strlen(vlr));
 
 	//bt = BinTreeCreate_2(s, &i);
 	//BinTreeCreate(&bt);
@@ -336,7 +412,7 @@ int main() //双循环链表
 #endif //dclist
 
 
-#if 1
+#if 0
 
 int main() //头节点双循环链表
 {

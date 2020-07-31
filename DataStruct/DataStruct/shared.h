@@ -7,6 +7,9 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <malloc.h>
+#include <time.h>
+#include <string.h>
+#include <errno.h>
 #include <string.h>
 #pragma warning(disable:4996)
 
@@ -17,12 +20,18 @@ int cmp(const void *a, const void *b)
 	return *(ElementType *)a - *(ElementType *)b;
 }
 
+
 void Swap(const void *a, const void *b)
 {
-	*(ElementType *)a ^= *(ElementType *)b;
-	*(ElementType *)b ^= *(ElementType *)a;
-	*(ElementType *)a ^= *(ElementType *)b;
+	ElementType tmp = *(ElementType *)a;
+	*(ElementType *)a = *(ElementType *)b;
+	*(ElementType *)b = tmp;
+
+	//*(ElementType *)a ^= *(ElementType *)b;
+	//*(ElementType *)b ^= *(ElementType *)a;
+	//*(ElementType *)a ^= *(ElementType *)b;
 }
+
 
 
 

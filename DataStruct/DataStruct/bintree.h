@@ -203,6 +203,11 @@ BinTreeNode* BinTreeFind(BinTree t, BinTreeElementType key);
 BinTreeNode* BinTreeParent(BinTree t, BinTreeNode *p);
 BinTreeNode* BinTreeClone(BinTree t);
 bool Equal(BinTree t1, BinTree t2);
+int BinaryTreeLeafSize(BinTree t);//求叶子节点个数
+int BinaryTreeLevelKSize(BinTree t, int k);//第k层节点的个数
+int BinaryTreeComplete(BinTree t);//是否为完全二叉树
+void BinaryDestroy(BinTree *t);
+
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
@@ -499,6 +504,102 @@ bool Equal(BinTree t1, BinTree t2)
 		return false;
 	return true;
 }
+
+int BinaryTreeLeafSize(BinTree t)//求叶子节点个数
+{
+	if (t == NULL)
+		return 0;
+	if (t->leftchild == NULL && t->rightchild == NULL)
+		return 1;
+	else
+	{
+		int left = BinaryTreeLeafSize(t->leftchild);
+		int rigth = BinaryTreeLeafSize(t->rightchild);
+		return left + rigth;
+	}
+}
+
+int BinaryTreeLevelKSize(BinTree t, int k)
+{
+	assert(k > 0);
+	if (t == NULL)
+		return 0;
+	int heigth = BinTreeHeight(t);
+	if (k > heigth)
+		return 0;
+	if (k == 1)
+		return 1;
+	return BinaryTreeLevelKSize(t->leftchild, k - 1) + BinaryTreeLevelKSize(t->rightchild, k - 1);
+
+}
+
+BinTreeNode* BinaryTreeCrete(const char *t, int *n)
+{
+	if (t[*n] == '\0' || t[*n] == '#')
+		return NULL;
+	else
+	{
+		BinTreeNode *p = (BinTreeNode *)malloc(sizeof(BinTreeNode));
+		assert(p != NULL);
+		p->data = t[*n];
+		(*n)++;
+		p->leftchild = BinaryTreeCrete(t,n);
+		(*n)++;
+		p->rightchild = BinaryTreeCrete(t, n);
+		return p;
+	}
+}
+
+int BinaryTreeComplete(BinTree t)//是否为完全二叉树
+{
+	if (t == NULL)
+		return 1;
+	LinkQueue Q;
+	LinkQueueInit(&Q);
+	LinkQueueEn(&Q, t);
+	int tmp = 0;
+	while (!LinkQueueIsEmpty(&Q))
+	{
+		BinTreeNode *p = LinkQueueFront(&Q);
+		LinkQueueDe(&Q);
+		if (tmp == 1)
+		{
+			if (p->leftchild != NULL || p->rightchild != NULL)
+			{
+				LinkQueueDestroy(&Q);
+				return 0;
+			}
+		}
+		if (p->leftchild == NULL && p->rightchild != NULL)
+		{
+			LinkQueueDestroy(&Q);
+			return 0;
+		}
+		if (p->leftchild != NULL && p->rightchild == NULL)
+			tmp = 1;
+		if (p->leftchild != NULL && p->rightchild != NULL)
+		{
+			LinkQueueEn(&Q, p->leftchild);
+			LinkQueueEn(&Q, p->rightchild);
+		}
+	}
+	LinkQueueDestroy(&Q);
+	return 1;
+}
+
+void BinaryDestroy(BinTree *t)
+{
+	if (t == NULL || *t == NULL)
+		return;
+	else
+	{
+		BinaryDestroy(&(*t)->leftchild);
+		BinaryDestroy(&(*t)->rightchild);
+		free(*t);
+		*t = NULL;
+	}
+}
+
 
 
 #endif // !_BINTREE_H_

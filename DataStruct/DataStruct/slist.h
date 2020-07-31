@@ -28,8 +28,8 @@ size_t SlistLength(SList *phead);//求长度
 void SlistSort(SList *phead);//链表排序
 void SlistReverse(SList *phead);//链表逆置
 void SlistClear(SList *phead);//清空链表
-void SlistFront(SList *phead);//表头元素
-void SlistBack(SList *phead);//表尾元素
+ElementType SlistFront(SList *phead);//表头元素
+ElementType SlistBack(SList *phead);//表尾元素
 void SlistEraseAll(SList *phead, ElementType x);//清除和输入值在链表中一样的元素
 void SlistDestroy(SList *phead);
 
@@ -54,6 +54,7 @@ void SlistHeadClear(SList *phead);//清空链表
 void SlistHeadFront(SList *phead);//表头元素
 void SlistHeadBack(SList *phead);//表尾元素
 void SlistHeadEraseAll(SList *phead, ElementType x);//删除和输入值相同的元素
+bool SlistIsEmpty(SList *phead);
 void SlistHeadDestroy(SList *phead);//摧毁链表
 
 
@@ -319,13 +320,14 @@ void SlistClear(SList *phead)//清空链表
 	}
 }
 
-void SlistFront(SList *phead)//表头元素
+ElementType SlistFront(SList *phead)//表头元素
 {
 	assert(phead != NULL);
-	printf("表头元素为：>%d\n", (*phead)->data);
+	//printf("表头元素为：>%d\n", (*phead)->data);
+	return (*phead)->data;
 }
 
-void SlistBack(SList *phead)//表尾元素
+ElementType SlistBack(SList *phead)//表尾元素
 {
 	assert(phead != NULL);
 	SlistNode *p = *phead;
@@ -333,7 +335,8 @@ void SlistBack(SList *phead)//表尾元素
 	{
 		p = p->next;
 	}
-	printf("表尾元素为：>%d\n", p->data);
+	//printf("表尾元素为：>%d\n", p->data);
+	return p->data;
 }
 
 void SlistEraseAll(SList *phead, ElementType x)//清除和输入值在链表中一样的元素
@@ -356,6 +359,11 @@ void SlistEraseAll(SList *phead, ElementType x)//清除和输入值在链表中一样的元素
 		*phead = p;
 	else
 		prev->next = p;
+}
+
+bool SlistIsEmpty(SList *phead)
+{
+	return *phead == NULL;
 }
 
 void SlistDestroy(SList *phead)
@@ -683,6 +691,22 @@ void SlistHeadDestroy(SList *phead)//摧毁
 	free(*phead);
 }
 
+
+void SlistReverse(SList *phead)
+{
+	if (SlistLength(phead) <= 1)
+		return;
+	SlistNode *p = *phead;
+	SlistNode *q = p->next;
+	p->next = NULL;
+	while (q != NULL)
+	{
+		p = q;
+		q = q->next;
+		p->next = *phead;
+		*phead = p;
+	}
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
